@@ -1,0 +1,39 @@
+/* Este é um comentário
+   de múltiplas linhas */
+
+int x, y, contador;
+float resultado;
+string mensagem;
+
+// Teste de operadores lógicos compostos
+x = 10;
+y = 5;
+
+if (x > 5 && y < 10) {
+    printf("Ambas condicoes sao verdadeiras");
+}
+
+if (x == 10 || y == 0) {
+    printf("Pelo menos uma condicao eh verdadeira");
+}
+
+// Teste de negação lógica
+if (!(x < 5)) {
+    printf("x nao eh menor que 5");
+}
+
+// Teste de números negativos
+resultado = -15.5 + x;
+y = -10 * 2;
+
+// Teste de incremento e decremento no for
+for (contador = 0; contador < 10; contador++) {
+    printf("Contador: ", contador);
+}
+
+// Teste de strings com escape sequences
+mensagem = "Linha 1\nLinha 2\tTabulacao";
+printf("String com aspas: \"teste\"");
+
+// Teste de múltiplos argumentos no printf
+printf("Valor de x: ", x, " e y: ", y);

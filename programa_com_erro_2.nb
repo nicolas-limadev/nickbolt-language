@@ -1,0 +1,7 @@
+int x;
+
+// Erro: variável não declarada
+y = 10;
+
+// Erro: variável duplicada
+int x;
