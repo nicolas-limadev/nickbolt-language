@@ -50,12 +50,12 @@ public class AnalisadorLexico {
             if (Character.isWhitespace(charAtual())) {
                 avancar();
             } else if (charAtual() == '/' && proximoChar() == '/') {
-                // Comentário de linha
+                
                 while (charAtual() != '\n' && charAtual() != '\0') {
                     avancar();
                 }
             } else if (charAtual() == '/' && proximoChar() == '*') {
-                // Comentário de bloco
+                
                 avancar(); avancar();
                 while (!(charAtual() == '*' && proximoChar() == '/') && charAtual() != '\0') {
                     avancar();
@@ -192,7 +192,7 @@ public class AnalisadorLexico {
     
     private Token stringLiteral() {
         StringBuilder sb = new StringBuilder();
-        avancar(); // Pula a aspa inicial
+        avancar();
         
         while(charAtual() != '"' && charAtual() != '\0' && charAtual() != '\n') {
             if (charAtual() == '\\') {

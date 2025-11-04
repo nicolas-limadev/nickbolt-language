@@ -32,8 +32,15 @@ for (contador = 0; contador < 10; contador++) {
 }
 
 // Teste de strings com escape sequences
-mensagem = "Linha 1\nLinha 2\tTabulacao";
+printf("Linha 1\nLinha 2\tTabulacao");
 printf("String com aspas: \"teste\"");
 
 // Teste de múltiplos argumentos no printf
 printf("Valor de x: ", x, " e y: ", y);
+
+// Teste de laço while
+contador = 5;
+while (contador > 0) {
+    printf("Countdown: ", contador);
+    contador--;
+}

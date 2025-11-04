@@ -95,7 +95,21 @@ public class AnalisadorSintatico {
     // <comando> ::= <comando_atribuicao> | <comando_if> | ...
     private void comando() {
         switch (tokenAtual.tipo) {
-            case ID: comandoAtribuicao(); break;
+            case ID: 
+                // Verifica se é incremento/decremento ou atribuição
+                String nomeVar = tokenAtual.lexema;
+                consome(TipoToken.ID);
+                verificaVariavelDeclarada(nomeVar);
+                
+                if (tokenAtual.tipo == TipoToken.INCREMENTO || tokenAtual.tipo == TipoToken.DECREMENTO) {
+                    consome(tokenAtual.tipo);
+                    consome(TipoToken.PONTO_VIRGULA);
+                } else {
+                    consome(TipoToken.IGUAL);
+                    expressaoAritmetica();
+                    consome(TipoToken.PONTO_VIRGULA);
+                }
+                break;
             case IF: comandoIf(); break;
             case WHILE: comandoWhile(); break;
             case FOR: comandoFor(); break;

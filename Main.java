@@ -16,7 +16,7 @@ public class Main {
             AnalisadorLexico lexer = new AnalisadorLexico(codigo);
             AnalisadorSintatico parser = new AnalisadorSintatico(lexer);
             
-            parser.programa(); // Inicia a análise
+            parser.programa();
             
             System.out.println("Compilação bem-sucedida! O código está sintaticamente correto.");
 
