@@ -1,13 +1,11 @@
 public enum TipoToken {
-    // Palavras-chave
+
     IF, ELSE, WHILE, FOR, INT, FLOAT, STRING, SCANF, PRINTF,
 
-    // Identificadores e Literais
     ID,          // Nomes de variáveis
     NUMERO,      // 123, 3.14
     STRING_LITERAL, // "texto"
 
-    // Operadores
     IGUAL,       // =
     MAIS,        // +
     MENOS,       // -
@@ -20,12 +18,11 @@ public enum TipoToken {
     INCREMENTO,  // ++
     DECREMENTO,  // --
 
-    // Pontuação
     ABRE_PARENTESES, FECHA_PARENTESES, // ( )
     ABRE_CHAVES, FECHA_CHAVES,         // { }
     PONTO_VIRGULA,                     // ;
     VIRGULA,                           // ,
 
-    // Fim do arquivo
+
     EOF
 }

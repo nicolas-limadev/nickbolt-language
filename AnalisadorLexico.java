@@ -90,7 +90,6 @@ public class AnalisadorLexico {
             return stringLiteral();
         }
 
-        // Operadores e pontuação
         switch (c) {
             case '+':
                 if (proximoChar() == '+') {

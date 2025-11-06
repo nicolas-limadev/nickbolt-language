@@ -37,7 +37,6 @@ public class AnalisadorSintatico {
         tabelaSimbolos.put(nome, tipo);
     }
 
-    // <programa> ::= <lista_declaracoes> <lista_comandos>
     public void programa() {
         listaDeclaracoes();
         listaComandos();
@@ -46,14 +45,12 @@ public class AnalisadorSintatico {
         }
     }
 
-    // <lista_declaracoes> ::= <declaracao> <lista_declaracoes> | ε
     private void listaDeclaracoes() {
         while (tokenAtual.tipo == TipoToken.INT || tokenAtual.tipo == TipoToken.FLOAT || tokenAtual.tipo == TipoToken.STRING) {
             declaracao();
         }
     }
-    
-    // <declaracao> ::= <tipo> ID <lista_ids> ";"
+
     private void declaracao() {
         TipoToken tipoVar = tokenAtual.tipo;
         tipo();
@@ -63,8 +60,7 @@ public class AnalisadorSintatico {
         listaIds(tipoVar);
         consome(TipoToken.PONTO_VIRGULA);
     }
-    
-    // <lista_ids> ::= "," ID <lista_ids> | ε
+
     private void listaIds(TipoToken tipo) {
         while (tokenAtual.tipo == TipoToken.VIRGULA) {
             consome(TipoToken.VIRGULA);
@@ -74,7 +70,6 @@ public class AnalisadorSintatico {
         }
     }
 
-    // <tipo> ::= "int" | "float" | "string"
     private void tipo() {
         if (tokenAtual.tipo == TipoToken.INT) {
             consome(TipoToken.INT);
@@ -85,18 +80,15 @@ public class AnalisadorSintatico {
         }
     }
 
-    // <lista_comandos> ::= <comando> <lista_comandos> | ε
     private void listaComandos() {
         while (tokenAtual.tipo != TipoToken.EOF && tokenAtual.tipo != TipoToken.FECHA_CHAVES) {
             comando();
         }
     }
 
-    // <comando> ::= <comando_atribuicao> | <comando_if> | ...
     private void comando() {
         switch (tokenAtual.tipo) {
             case ID: 
-                // Verifica se é incremento/decremento ou atribuição
                 String nomeVar = tokenAtual.lexema;
                 consome(TipoToken.ID);
                 verificaVariavelDeclarada(nomeVar);
@@ -124,8 +116,7 @@ public class AnalisadorSintatico {
                  throw new RuntimeException("Linha " + tokenAtual.linha + ": Comando inválido ou inesperado '" + tokenAtual.lexema + "'");
         }
     }
-    
-    // <comando_atribuicao> ::= ID "=" <expressao_aritmetica> ";"
+
     private void comandoAtribuicao() {
         String nomeVar = tokenAtual.lexema;
         consome(TipoToken.ID);
@@ -135,7 +126,6 @@ public class AnalisadorSintatico {
         consome(TipoToken.PONTO_VIRGULA);
     }
 
-    // <comando_if> ::= "if" "(" <expressao_logica> ")" <comando> <else_opcional>
     private void comandoIf() {
         consome(TipoToken.IF);
         consome(TipoToken.ABRE_PARENTESES);
@@ -148,7 +138,6 @@ public class AnalisadorSintatico {
         }
     }
 
-    // <comando_while> ::= "while" "(" <expressao_logica> ")" <comando>
     private void comandoWhile() {
         consome(TipoToken.WHILE);
         consome(TipoToken.ABRE_PARENTESES);
@@ -156,8 +145,7 @@ public class AnalisadorSintatico {
         consome(TipoToken.FECHA_PARENTESES);
         comando();
     }
-    
-    // <comando_for> ::= "for" "(" <comando_atribuicao> <expressao_logica> ";" <incremento> ")" <comando>
+
     private void comandoFor() {
         consome(TipoToken.FOR);
         consome(TipoToken.ABRE_PARENTESES);
@@ -179,8 +167,7 @@ public class AnalisadorSintatico {
         consome(TipoToken.FECHA_PARENTESES);
         comando();
     }
-    
-    // <comando_leitura> ::= "scanf" "(" ID ")" ";"
+
     private void comandoLeitura() {
         consome(TipoToken.SCANF);
         consome(TipoToken.ABRE_PARENTESES);
@@ -191,7 +178,6 @@ public class AnalisadorSintatico {
         consome(TipoToken.PONTO_VIRGULA);
     }
 
-    // <comando_escrita> ::= "printf" "(" <argumento_printf> { "," <argumento_printf> } ")" ";"
     private void comandoEscrita() {
         consome(TipoToken.PRINTF);
         consome(TipoToken.ABRE_PARENTESES);
@@ -214,8 +200,7 @@ public class AnalisadorSintatico {
         consome(TipoToken.FECHA_PARENTESES);
         consome(TipoToken.PONTO_VIRGULA);
     }
-    
-    // <expressao_logica> ::= <termo_logico> { ( "&&" | "||" ) <termo_logico> }
+
     private void expressaoLogica() {
         termoLogico();
         while (tokenAtual.tipo == TipoToken.E_LOGICO || tokenAtual.tipo == TipoToken.OU_LOGICO) {
@@ -223,8 +208,7 @@ public class AnalisadorSintatico {
             termoLogico();
         }
     }
-    
-    // <termo_logico> ::= [ "!" ] ( "(" <expressao_logica> ")" | <expressao_relacional> )
+
     private void termoLogico() {
         if (tokenAtual.tipo == TipoToken.NAO_LOGICO) {
             consome(TipoToken.NAO_LOGICO);
@@ -238,15 +222,14 @@ public class AnalisadorSintatico {
             expressaoRelacional();
         }
     }
-    
-    // <expressao_relacional> ::= <expressao_aritmetica> <op_relacional> <expressao_aritmetica>
+
     private void expressaoRelacional() {
         expressaoAritmetica();
         consome(TipoToken.OP_RELACIONAL);
         expressaoAritmetica();
     }
     
-    // <expressao_aritmetica> ::= <termo> { ( "+" | "-" ) <termo> }
+
     private void expressaoAritmetica() {
         termo();
         while (tokenAtual.tipo == TipoToken.MAIS || tokenAtual.tipo == TipoToken.MENOS) {
@@ -254,8 +237,7 @@ public class AnalisadorSintatico {
             termo();
         }
     }
-    
-    // <termo> ::= <fator> { ( "*" | "/" ) <fator> }
+
     private void termo() {
         fator();
         while (tokenAtual.tipo == TipoToken.MULT || tokenAtual.tipo == TipoToken.DIV) {
@@ -264,7 +246,6 @@ public class AnalisadorSintatico {
         }
     }
 
-    // <fator> ::= [ "-" ] ( ID | NUMERO | "(" <expressao_aritmetica> ")" )
     private void fator() {
         if (tokenAtual.tipo == TipoToken.MENOS) {
             consome(TipoToken.MENOS);
