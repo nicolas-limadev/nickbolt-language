@@ -1,16 +1,16 @@
 public class Token {
-    public final TipoToken tipo;
-    public final String lexema;
-    public final int linha;
+    public final TokenType type;
+    public final String lexeme;
+    public final int line;
 
-    public Token(TipoToken tipo, String lexema, int linha) {
-        this.tipo = tipo;
-        this.lexema = lexema;
-        this.linha = linha;
+    public Token(TokenType type, String lexeme, int line) {
+        this.type = type;
+        this.lexeme = lexeme;
+        this.line = line;
     }
 
     @Override
     public String toString() {
-        return "Token [tipo=" + tipo + ", lexema='" + lexema + "', linha=" + linha + "]";
+        return "Token [type=" + type + ", lexeme='" + lexeme + "', line=" + line + "]";
     }
 }

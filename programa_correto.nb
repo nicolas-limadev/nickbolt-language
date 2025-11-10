@@ -1,4 +1,5 @@
-int x, y, z;
+int x, y;
+float z;
 float salario;
 string nome;
 

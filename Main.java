@@ -5,27 +5,27 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
         if (args.length == 0) {
-            System.err.println("Uso: java Main <caminho_para_o_arquivo_fonte>");
+            System.err.println("Usage: java Main <path_to_source_file>");
             System.exit(1);
         }
 
-        String arquivoFonte = args[0];
+        String sourceFile = args[0];
         try {
-            String codigo = new String(Files.readAllBytes(Paths.get(arquivoFonte)));
+            String sourceCode = new String(Files.readAllBytes(Paths.get(sourceFile)));
             
-            AnalisadorLexico lexer = new AnalisadorLexico(codigo);
-            AnalisadorSintatico parser = new AnalisadorSintatico(lexer);
+            LexicalAnalyzer lexer = new LexicalAnalyzer(sourceCode);
+            SyntacticAnalyzer parser = new SyntacticAnalyzer(lexer);
             
-            parser.programa();
+            parser.program();
             
-            System.out.println("Compilação bem-sucedida! O código está sintaticamente correto.");
+            System.out.println("Compilation successful! The code is syntactically correct.");
 
         } catch (IOException e) {
-            System.err.println("Erro ao ler o arquivo: " + arquivoFonte);
+            System.err.println("Error reading file: " + sourceFile);
             e.printStackTrace();
             System.exit(1);
         } catch (RuntimeException e) {
-            System.err.println("Erro de compilação: " + e.getMessage());
+            System.err.println("Compilation error: " + e.getMessage());
             System.exit(1);
         }
     }
