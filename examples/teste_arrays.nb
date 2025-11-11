@@ -1,0 +1,32 @@
+// Teste simples de arrays
+int numeros[5];
+int i, valor;
+
+// Função para somar dois números
+int soma(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    // Inicializando array
+    numeros[0] = 10;
+    numeros[1] = 20;
+    numeros[2] = 30;
+    
+    // Testando acesso a array
+    valor = numeros[0];
+    printf("Primeiro valor: ", valor);
+    
+    // Testando função
+    valor = soma(numeros[0], numeros[1]);
+    printf("Soma: ", valor);
+    
+    // Testando escopo local
+    {
+        int temp;
+        temp = numeros[2];
+        printf("Valor local: ", temp);
+    }
+    
+    return 0;
+}

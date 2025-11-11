@@ -1,32 +1,34 @@
 public enum TokenType {
 
-    // Keywords
+    // Palavras-chave
     IF, ELSE, WHILE, FOR, INT, FLOAT, STRING, SCANF, PRINTF,
+    RETURN, // Adicionado
 
-    // Literals and Identifiers
-    ID,             // Nomes de variáveis
-    NUMBER,         // 123, 3.14
+    // Identificadores e Literais
+    ID,          // Nomes de variáveis
+    NUMBER,      // 123, 3.14
     STRING_LITERAL, // "texto"
 
-    // Operators
-    ASSIGN,         // =
-    PLUS,           // +
-    MINUS,          // -
-    MULTIPLY,       // *
-    DIVIDE,         // /
-    RELATIONAL_OP,  // ==, !=, <, >, <=, >=
-    LOGICAL_AND,    // &&
-    LOGICAL_OR,     // ||
-    LOGICAL_NOT,    // !
-    INCREMENT,      // ++
-    DECREMENT,      // --
+    // Operadores
+    ASSIGN,      // =
+    PLUS,        // +
+    MINUS,       // -
+    MULTIPLY,    // *
+    DIVIDE,      // /
+    RELATIONAL_OP, // ==, !=, <, >, <=, >=
+    LOGICAL_AND, // &&
+    LOGICAL_OR,  // ||
+    LOGICAL_NOT, // !
+    INCREMENT,   // ++
+    DECREMENT,   // --
 
-    // Delimiters
-    LPAREN, RPAREN, // ( )
-    LBRACE, RBRACE, // { }
-    SEMICOLON,      // ;
-    COMMA,          // ,
+    // Pontuação
+    LPAREN, RPAREN,     // ( )
+    LBRACE, RBRACE,     // { }
+    LBRACKET, RBRACKET, // [ ] - para arrays
+    SEMICOLON,          // ;
+    COMMA,              // ,
 
-    // End of File
+    // Fim do arquivo
     EOF
 }

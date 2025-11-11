@@ -18,6 +18,7 @@ public class LexicalAnalyzer {
         keywords.put("string", TokenType.STRING);
         keywords.put("scanf", TokenType.SCANF);
         keywords.put("printf", TokenType.PRINTF);
+        keywords.put("return", TokenType.RETURN); // Adicionado
     }
 
     public LexicalAnalyzer(String sourceCode) {
@@ -54,12 +55,12 @@ public class LexicalAnalyzer {
                     advance();
                 }
             } else if (peek() == '/' && peekNext() == '*') {
-                advance(); advance(); // Skip /*
+                advance(); advance();
                 while (!(peek() == '*' && peekNext() == '/') && peek() != '\0') {
                     advance();
                 }
                 if (peek() != '\0') {
-                    advance(); advance(); // Skip */
+                    advance(); advance();
                 }
             } else {
                 break;
@@ -69,25 +70,19 @@ public class LexicalAnalyzer {
 
     public Token getNextToken() {
         skipWhitespaceAndComments();
-
         char c = peek();
-
         if (c == '\0') {
             return new Token(TokenType.EOF, "", line);
         }
-
         if (Character.isLetter(c)) {
             return identifierOrKeyword();
         }
-
         if (Character.isDigit(c)) {
             return number();
         }
-
         if (c == '"') {
             return stringLiteral();
         }
-
         switch (c) {
             case '+':
                 if (peekNext() == '+') {
@@ -109,6 +104,8 @@ public class LexicalAnalyzer {
             case ')': advance(); return new Token(TokenType.RPAREN, ")", line);
             case '{': advance(); return new Token(TokenType.LBRACE, "{", line);
             case '}': advance(); return new Token(TokenType.RBRACE, "}", line);
+            case '[': advance(); return new Token(TokenType.LBRACKET, "[", line);
+            case ']': advance(); return new Token(TokenType.RBRACKET, "]", line);
             case ';': advance(); return new Token(TokenType.SEMICOLON, ";", line);
             case ',': advance(); return new Token(TokenType.COMMA, ",", line);
             case '=':
@@ -152,7 +149,6 @@ public class LexicalAnalyzer {
                 }
                 break;
         }
-
         throw new RuntimeException("Line " + line + ": Unexpected character '" + c + "'");
     }
 
@@ -169,12 +165,10 @@ public class LexicalAnalyzer {
 
     private Token number() {
         StringBuilder sb = new StringBuilder();
-        
         while (peek() != '\0' && Character.isDigit(peek())) {
             sb.append(peek());
             advance();
         }
-        
         if (peek() == '.' && Character.isDigit(peekNext())) {
             sb.append(peek());
             advance();
@@ -183,14 +177,12 @@ public class LexicalAnalyzer {
                 advance();
             }
         }
-        
         return new Token(TokenType.NUMBER, sb.toString(), line);
     }
     
     private Token stringLiteral() {
         StringBuilder sb = new StringBuilder();
         advance();
-        
         while(peek() != '"' && peek() != '\0' && peek() != '\n') {
             if (peek() == '\\') {
                 advance();
@@ -209,7 +201,6 @@ public class LexicalAnalyzer {
                 advance();
             }
         }
-        
         if (peek() == '"') {
             advance();
             return new Token(TokenType.STRING_LITERAL, sb.toString(), line);

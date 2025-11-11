@@ -1,0 +1,59 @@
+// Programa demonstrando escopos, funções e arrays
+
+// Declaração de array global
+int numeros[5];
+float medias[3];
+
+// Função para calcular soma
+int soma(int a, int b) {
+    int resultado;
+    resultado = a + b;
+    return resultado;
+}
+
+// Função para calcular média de array
+float calcularMedia(int tamanho) {
+    int i, total;
+    float media;
+    
+    total = 0;
+    for (i = 0; i < tamanho; i++) {
+        total = total + numeros[i];
+    }
+    
+    media = total / tamanho;
+    return media;
+}
+
+// Programa principal com variáveis locais
+int main() {
+    int x, y, resultado;
+    string nome;
+    
+    printf("Digite seu nome: ");
+    scanf(nome);
+    
+    printf("Digite 5 números:");
+    for (x = 0; x < 5; x++) {
+        scanf(numeros[x]);
+    }
+    
+    // Testando escopo local
+    {
+        int temp;
+        temp = soma(numeros[0], numeros[1]);
+        printf("Soma dos dois primeiros: ", temp);
+    }
+    
+    // Calculando média
+    medias[0] = calcularMedia(5);
+    printf("Média dos números: ", medias[0]);
+
+    // Testando incremento em array
+    for (y = 0; y < 5; y++) {
+        numeros[y]++;
+        printf("Número incrementado: ", numeros[y]);
+    }
+    
+    return 0;
+}
